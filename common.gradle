@@ -1,0 +1,56 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion Releases.compileSdkVersion
+
+    defaultConfig {
+        minSdkVersion Releases.minSdkVersion
+        targetSdkVersion Releases.targetSdkVersion
+        versionCode Releases.versionCode
+        versionName Releases.versionName
+
+        buildConfigField("String", "BASE_URL", "\"https://api.github.com/\"")
+    }
+
+    buildTypes {
+        debug {
+
+        }
+        release {
+            minifyEnabled false
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation Dependencies.kotlin
+
+    //di
+    implementation Dagger.dagger
+    implementation Dagger.android
+    kapt Dagger.compiler
+    kapt Dagger.processor
+
+    //testing
+    testImplementation Testing.jUnit
+    testImplementation Testing.mockito
+    testImplementation Testing.mockKtRunner
+    testImplementation Testing.androidX
+    testImplementation Coroutines.core
+    testImplementation Coroutines.android
+    testImplementation Coroutines.test
+    androidTestImplementation Testing.testRunner
+    androidTestImplementation Testing.espresso
+    androidTestImplementation Testing.espressoContrib
+    androidTestImplementation Testing.rules
+    androidTestImplementation Testing.core
+    androidTestImplementation Testing.espressoIdleResources
+}

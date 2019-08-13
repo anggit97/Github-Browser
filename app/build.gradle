@@ -1,0 +1,89 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion Releases.compileSdkVersion
+    buildToolsVersion Releases.buildToolsVersion
+
+    defaultConfig {
+        applicationId ApplicationId.id
+        minSdkVersion Releases.minSdkVersion
+        targetSdkVersion Releases.targetSdkVersion
+        versionCode Releases.versionCode
+        versionName Releases.versionName
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            minifyEnabled false
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation Dependencies.kotlin
+
+    //android
+    implementation Android.appCompat
+    implementation Android.material
+    implementation Android.ktx
+    implementation Android.constraintLayout
+
+    //dependency injection
+    implementation Dagger.dagger
+    implementation Dagger.android
+    kapt Dagger.compiler
+    kapt Dagger.processor
+
+    //network
+    implementation Retrofit.retrofit
+    implementation Retrofit.gsonConverter
+    implementation Retrofit.okHttpLogging
+    implementation Retrofit.coroutinesAdapter
+
+    //coroutines
+    implementation Coroutines.core
+    implementation Coroutines.android
+
+    //jetpack
+    implementation Jetpack.recyclerView
+    implementation Jetpack.lifecycle
+    kapt Jetpack.lifecycleCompiler
+
+    //testing
+    testImplementation Testing.jUnit
+    testImplementation Testing.mockito
+    testImplementation Testing.mockKtRunner
+    androidTestImplementation Testing.testRunner
+    androidTestImplementation Testing.espresso
+    androidTestImplementation Testing.espressoContrib
+    androidTestImplementation Testing.rules
+    androidTestImplementation Testing.core
+    androidTestImplementation Testing.espressoIdleResources
+
+    implementation Testing.espressoIdleResources
+
+    implementation project(':core')
+    implementation project(':network')
+    implementation project(':data')
+}
+
+repositories {
+    google()
+}
