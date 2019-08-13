@@ -1,12 +1,12 @@
-package com.anggit97.mvvm.ui.auth
+package com.anggit97.mvvm.dagger
 
 import com.anggit97.core.utils.thread.ApplicationSchedulerProvider
 import com.anggit97.core.utils.thread.SchedulerProvider
-import com.anggit97.mvvm.dagger.AppScope
 import com.anggit97.mvvm.data.remote.AppService
 import com.anggit97.mvvm.data.remote.repository.AppRepository
 import com.anggit97.mvvm.data.remote.repository.AppRepositoryImpl
 import com.anggit97.mvvm.domain.AppUseCase
+import com.anggit97.network.AuthenticationInterceptor
 import com.anggit97.network.Network.retrofitClientBasicAuth
 import dagger.Module
 import dagger.Provides
@@ -16,15 +16,18 @@ import dagger.Provides
  * github : @anggit97
  */
 @Module
-class LoginModule(
-    private val username: String,
-    private val password: String
-) {
+class AppModule {
 
     @AppScope
     @Provides
-    fun provideService(): AppService {
-        return retrofitClientBasicAuth(username, password).create(AppService::class.java)
+    fun provideAuthenticationInterceptor() = AuthenticationInterceptor()
+
+    @AppScope
+    @Provides
+    fun provideService(authenticationInterceptor: AuthenticationInterceptor): AppService {
+        return retrofitClientBasicAuth(authenticationInterceptor).create(
+            AppService::class.java
+        )
     }
 
     @AppScope

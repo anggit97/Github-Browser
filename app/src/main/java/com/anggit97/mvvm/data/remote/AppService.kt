@@ -4,7 +4,6 @@ import com.anggit97.data.user.User
 import kotlinx.coroutines.Deferred
 import retrofit2.Response
 import retrofit2.http.GET
-import retrofit2.http.Headers
 import retrofit2.http.Query
 
 /**
@@ -13,7 +12,6 @@ import retrofit2.http.Query
  */
 interface AppService {
 
-    @Headers("Accept: application/json")
     @GET("search/users")
     fun getUsers(
         @Query("q") username: String

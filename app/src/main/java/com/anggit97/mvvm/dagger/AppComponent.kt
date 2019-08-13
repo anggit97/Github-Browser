@@ -1,8 +1,6 @@
 package com.anggit97.mvvm.dagger
 
-import com.anggit97.mvvm.ui.auth.AppViewModelModule
 import com.anggit97.mvvm.ui.auth.LoginActivity
-import com.anggit97.mvvm.ui.auth.LoginModule
 import dagger.Component
 
 /**
@@ -13,10 +11,13 @@ import dagger.Component
 @Component(
     modules = [
         AppViewModelModule::class,
-        LoginModule::class
+        AppModule::class,
+        AuthenticationModule::class
     ]
 )
 interface AppComponent {
+
+    fun authenticationProvider(): AuthenticationProvder
 
     fun inject(loginActivity: LoginActivity)
 }

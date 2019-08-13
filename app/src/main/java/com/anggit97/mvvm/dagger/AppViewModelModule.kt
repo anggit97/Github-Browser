@@ -1,10 +1,10 @@
-package com.anggit97.mvvm.ui.auth
+package com.anggit97.mvvm.dagger
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.anggit97.core.utils.ViewModelFactory
 import com.anggit97.core.utils.ViewModelKey
-import com.anggit97.mvvm.dagger.AppScope
+import com.anggit97.mvvm.ui.auth.LoginViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
